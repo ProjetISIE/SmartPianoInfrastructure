@@ -1,66 +1,62 @@
 {
-  description = "NixOS SD card image for Raspberry Pi";
+  description = "Nix flake C++23 cross development environment";
+  nixConfig = {
+    extra-substituters = [ "https://cache.garnix.io" ];
+    extra-trusted-public-keys = [ "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g=" ];
+  };
   inputs = {
-    # nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05"; # NixOS Stable
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable"; # NixOS Unstable
-    # lanzaboote.url = "github:nix-community/lanzaboote"; # Secure Boot
-    hardware.url = "github:NixOS/nixos-hardware/master"; # Hardware Configs
-    # impermanence.url = "github:nix-community/impermanence"; # Amnesiac root
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    # engine.url = "https://github.com/ProjetISIE/SmartPianoEngine/archive/main.tar.gz";
   };
   outputs =
     {
       self,
       nixpkgs,
-      hardware,
     }:
     let
-      systems =
-        f:
-        nixpkgs.lib.genAttrs
-          [
-            # "riscv64-linux" # 64-bit RISC-V Linux
-            "aarch64-linux" # 64-bit ARM Linux
-            "x86_64-linux" # 64-bit Intel/AMD Linux
-          ]
-          (
-            system:
-            f {
-              pkgs = import nixpkgs { inherit system; };
-            }
-          );
+      forSystems = nixpkgs.lib.genAttrs [
+        "x86_64-linux" # "aarch64-linux"
+        "aarch64-darwin"
+      ];
     in
     {
-      # NixOS SD card image, build with `nix build` (it’s the defaultPackage)
-      nixosConfigurations.sd = nixpkgs.lib.nixosSystem {
-        modules = [
-          {
-            system.stateVersion = "25.11";
-            nixpkgs.hostPlatform = "aarch64-linux";
-          }
-          "${nixpkgs}/nixos/modules/installer/sd-card/sd-image-raspberrypi.nix"
-          # "${nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64.nix"
-          ./rpi4.nix
-          hardware.nixosModules.raspberry-pi."4" # The SBC
-
-        ];
-      };
-      defaultPackage.aarch64-linux = self.nixosConfigurations.sd; # FIXME
-      devShells = systems (
-        { pkgs }:
+      devShells = forSystems (
+        system:
+        let
+          pkgs = import nixpkgs { inherit system; };
+        in
         {
-          default = pkgs.mkShell {
-            packages = with pkgs; [
-              nixd # "Official" Nix LSP
-              nil # Nix LSP
-              nixfmt # Formatter
-              nixfmt-tree # Format a whole directory of nix files
-              yaml-language-server # YAML LSP
-              taplo # TOML LSP
-              bash-language-server # Bash, shell script LSP
-              shellcheck # Shell script analysis
-              # vscode-langservers-extracted # HTML/CSS/JS(ON)
-            ];
-          };
+          default =
+            pkgs.mkShell.override
+              {
+                stdenv = pkgs.clangStdenv; # Clang instead of GCC
+              }
+              {
+                packages =
+                  with pkgs;
+                  [
+                    bashInteractive
+                    clang-tools # Clang CLIs, including LSP
+                    cmake-format # CMake formatter
+                    cmake-language-server # Cmake LSP
+                    doctest # Testing framework (-DBUILD_TESTING=ON builds)
+                    doxygen # Documentation generator
+                    lldb # Clang debug adapter
+                  ]
+                  ++ lib.optionals stdenv.isLinux [
+                    alsa-utils # aconnect…
+                    clang-uml # UML diagram generator
+                    cppcheck # C++ Static analysis
+                    fluidsynth # JACK Synthesizer
+                    qsynth # FluidSynth GUI
+                    socat # Serial terminal for manual testing
+                    valgrind # Debugging and profiling
+                  ];
+                # shellHook = ''
+                #   cmake -B build -GNinja -DCMAKE_BUILD_TYPE=Debug \
+                #     -DCOVERAGE=ON -DCMAKE_EXPORT_COMPILE_COMMANDS=ON # -S .
+                # '';
+              };
         }
       );
     };
