@@ -11,6 +11,9 @@ Certaines étapes de configuration sont nécessaires pour une meilleure
 expérience, à savoir avoir du son produit lors du jeu et une qualité d’image
 optimale.
 
+Smart Piano utilise [Raylib] qui supporte bien les
+[Raspberry Pi](https://github.com/raysan5/raylib/wiki/Working-on-Raspberry-Pi).
+
 ## Configuration de Raspberry Pi OS pour Smart Piano
 
 ### Réglages Graphiques
@@ -47,3 +50,5 @@ sudo apt install fluidsynth -y
 [RB-LCD-10-2]: https://joy-it.net/en/products/RB-LCD-10-2
 [Raspberry Pi 4]: https://www.raspberrypi.com/products/raspberry-pi-4-model-b
 [FluidSynth]: https://www.fluidsynth.org
+[NixGL]: https://github.com/nix-community/nixGL
+[Raylib]: https://www.raylib.com
