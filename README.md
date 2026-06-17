@@ -84,7 +84,7 @@ Requires=pipewire.service
 
 [Service]
 Type=simple
-ExecStart=/usr/bin/fluidsynth -a pipewire -m alsa_seq -g 1.0 -is /usr/share/sounds/sf2/FluidR3_GM.sf2
+ExecStart=/usr/bin/fluidsynth -a pulseaudio -m alsa_seq -g 2.5 -is /usr/share/sounds/sf2/FluidR3_GM.sf2
 Restart=always
 
 [Install]
