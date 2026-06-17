@@ -46,22 +46,13 @@ sudo apt update && sudo apt install -y fluidsynth fluid-soundfont-gm alsa-utils
 sudo usermod -aG audio $USER
 ```
 
-Ensuite, [FluidSynth] peut être lancé avec
+Ensuite, [FluidSynth] doit être configuré dans
+`systemctl --user edit fluidsynth` :
 
-```shell
-fluidsynth -s -i -p "FluidSynth" -a pipewire -m alsa_seq -g 1.0 /usr/share/sounds/sf2/FluidR3_GM.sf2
-```
-
-Finalement, il faut connecter le clavier à l’instance de FluidSynth avec
-
-```shell
-aconnect [ID Clavier] [ID FluidSynth]
-```
-
-Les identifiants respectifs pouvant être trouvés avec
-
-```shell
-aconnect -l
+```toml
+[Service]
+ExecStart=
+ExecStart=/usr/bin/fluidsynth -s -i -p "FluidSynth" -a pipewire -m alsa_seq -g 1.2 /usr/share/sounds/sf2/FluidR3_GM.sf2
 ```
 
 [boitier-support VESA]: https://makerworld.com/en/models/2940514-raspberry-pi-4-vesa-case
