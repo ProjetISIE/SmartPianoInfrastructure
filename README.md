@@ -52,6 +52,9 @@ wlr-randr --output HDMI-A-2 --custom-mode 1280x800@60 &
 ./smart-piano-ui &
 ```
 
+> Attention : Ces configurations rendront le premier port Micro USB-B (le plus
+> proche du port USB-C d’alimentation) incapable d’émettre de la vidéo
+
 ### Réglages Audio
 
 Smart Piano n’est pas capable de produire du son par lui-même. Cette tâche est
