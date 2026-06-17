@@ -31,6 +31,19 @@ Ce script génère les binaires `engine` et `smart-piano-ui` dans le répertoire
 scp deploy/* smart@192.168.0.2:
 ```
 
+Ensuite, configurer `~/.config/autostart/smart-piano-ui.desktop` pour que Smart
+Piano se lance au démarrage (considère que l’utilisateur s’appelle `smart`) :
+
+```toml
+[Desktop Entry]
+Type=Application
+Name=Smart Piano
+Comment=Lance Smart Piano au démarrage
+Exec=/home/smart/smart-piano-ui
+StartupNotify=false
+Terminal=false
+```
+
 ### Réglages Graphiques
 
 Le moniteur tactile [RB-LCD-10-2] semble avoir été pensé pour une version
@@ -49,7 +62,6 @@ Piano au démarrage.
 
 ```shell
 wlr-randr --output HDMI-A-2 --custom-mode 1280x800@60 &
-./smart-piano-ui &
 ```
 
 > Attention : Ces configurations rendront le premier port Micro USB-B (le plus
@@ -90,6 +102,9 @@ Restart=always
 [Install]
 WantedBy=default.target
 ```
+
+Le clavier devrait automatiquement être routé vers le synthétiseur au lancement
+d’une partie.
 
 [boitier-support VESA]: https://makerworld.com/en/models/2940514-raspberry-pi-4-vesa-case
 [Joy-It RB-LCD-10-2]: https://joy-it.net/en/products/RB-LCD-10-2
