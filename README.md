@@ -42,7 +42,26 @@ déléguée à un synthétiseur logiciel annexe tel que [FluidSynth], qu’il fa
 installer avec `apt`.
 
 ```shell
-sudo apt install fluidsynth -y
+sudo apt update && sudo apt install -y fluidsynth fluid-soundfont-gm alsa-utils
+sudo usermod -aG audio $USER
+```
+
+Ensuite, [FluidSynth] peut être lancé avec
+
+```shell
+fluidsynth -s -i -p "FluidSynth" -a pipewire -m alsa_seq -g 1.0 /usr/share/sounds/sf2/FluidR3_GM.sf2
+```
+
+Finalement, il faut connecter le clavier à l’instance de FluidSynth avec
+
+```shell
+aconnect [ID Clavier] [ID FluidSynth]
+```
+
+Les identifiants respectifs pouvant être trouvés avec
+
+```shell
+aconnect -l
 ```
 
 [boitier-support VESA]: https://makerworld.com/en/models/2940514-raspberry-pi-4-vesa-case
