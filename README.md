@@ -29,10 +29,12 @@ console=serial0,115200 console=tty1 root=PARTUUID=e2f2b425-02 rootfstype=ext4 fs
 ```
 
 Il faut aussi forcer la résolution à utiliser par le compositeur graphique Labwc
-dans `~/.config/labwc/autostart`.
+dans `~/.config/labwc/autostart`, et au passage lancer automatiquement Smart
+Piano au démarrage.
 
 ```shell
 wlr-randr --output HDMI-A-2 --custom-mode 1280x800@60 &
+./smart-piano-ui &
 ```
 
 ### Réglages Audio
