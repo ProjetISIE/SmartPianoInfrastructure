@@ -16,6 +16,21 @@ Smart Piano utilise [Raylib] qui supporte bien les
 
 ## Configuration de Raspberry Pi OS pour Smart Piano
 
+L’applicatif Smart Piano doit être présent sur la [Raspberry Pi 4] pour pouvoir
+s’y exécuter. S’il est possible d’y cloner le dépôt Git et d’y construire Smart
+Piano directement, le plus simple est probablement d’utiliser le script de
+construction croisée `cross-build.sh`, qui permet de faire un applicatif à
+destination du [Raspberry Pi 4] depuis la plupart des systèmes Linux.
+
+Ce script génère les binaires `engine` et `smart-piano-ui` dans le répertoire
+`deploy`. Il faut envoyer ces binaires sur la cible, par exemple avec `scp`, en
+étant connecté au même réseau local (admettons que l’IP de la cible est
+`192.168.0.2`).
+
+```shell
+scp deploy/* smart@192.168.0.2:
+```
+
 ### Réglages Graphiques
 
 Le moniteur tactile [RB-LCD-10-2] semble avoir été pensé pour une version
