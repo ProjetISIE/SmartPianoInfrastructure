@@ -66,13 +66,29 @@ sudo apt update && sudo apt install -y fluidsynth fluid-soundfont-gm alsa-utils
 sudo usermod -aG audio $USER
 ```
 
+Activer la possibilité pour l’utilisateur smart de lancer des services avant de
+s’être connecté :
+
+```shell
+sudo loginctl enable-linger smart
+```
+
 Ensuite, [FluidSynth] doit être configuré dans
-`systemctl --user edit fluidsynth` :
+`~/.config/systemd/user/fluidsynth.service` :
 
 ```toml
+[Unit]
+Description=FluidSynth Daemon (User Session)
+After=pipewire.service wireplumber.service
+Requires=pipewire.service
+
 [Service]
-ExecStart=
-ExecStart=/usr/bin/fluidsynth -s -i -p "FluidSynth" -a pipewire -m alsa_seq -g 1.2 /usr/share/sounds/sf2/FluidR3_GM.sf2
+Type=simple
+ExecStart=/usr/bin/fluidsynth -a pipewire -m alsa_seq -g 1.0 -is /usr/share/sounds/sf2/FluidR3_GM.sf2
+Restart=always
+
+[Install]
+WantedBy=default.target
 ```
 
 [boitier-support VESA]: https://makerworld.com/en/models/2940514-raspberry-pi-4-vesa-case
