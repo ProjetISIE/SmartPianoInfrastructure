@@ -107,9 +107,30 @@ Le clavier devrait automatiquement être routé vers le synthétiseur au lanceme
 d’une partie.
 
 [boitier-support VESA]: https://makerworld.com/en/models/2940514-raspberry-pi-4-vesa-case
-[Joy-It RB-LCD-10-2]: https://joy-it.net/en/products/RB-LCD-10-2
-[RB-LCD-10-2]: https://joy-it.net/en/products/RB-LCD-10-2
-[Raspberry Pi 4]: https://www.raspberrypi.com/products/raspberry-pi-4-model-b
+[CMake]: https://cmake.org
+[Clang]: https://clang.llvm.org
+[clangd]: https://clangd.llvm.org
+[clang-format]: https://clangd.llvm.org
+[clang-tidy]: https://clangd.llvm.org
+[C++23]: https://en.wikipedia.org/wiki/C%2B%2B23
+[direnv]: https://direnv.net
+[`direnv`]: https://direnv.net
+[doctest]: https://github.com/doctest/doctest
+[Doxygen]: https://www.doxygen.nl
+[Doxygen Docs]: https://www.doxygen.nl/manual
 [FluidSynth]: https://www.fluidsynth.org
+[Git]: https://git-scm.com
+[Helix]: https://helix-editor.com
+[Joy-It RB-LCD-10-2]: https://joy-it.net/en/products/RB-LCD-10-2
+[lcov]: https://github.com/linux-test-project/lcov
+[lldb]: https://lldb.llvm.org
+[llvm-cov]: https://llvm.org/docs/CommandGuide/llvm-cov.html
+[Nix]: https://nixos.org
 [NixGL]: https://github.com/nix-community/nixGL
+[Polytech Tours]: https://polytech.univ-tours.fr
+[Raspberry Pi 4]: https://www.raspberrypi.com/products/raspberry-pi-4-model-b
 [Raylib]: https://www.raylib.com
+[RB-LCD-10-2]: https://joy-it.net/en/products/RB-LCD-10-2
+[socat]: http://www.dest-unreach.org/socat
+[tio]: https://github.com/tio/tio
+[VS Code]: https://code.visualstudio.com
